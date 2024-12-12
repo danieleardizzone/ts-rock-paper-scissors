@@ -1,62 +1,156 @@
 (function () {
     'use strict';
 
-    const rockBtn = document.querySelector('button#rock');
-    const paperBtn = document.querySelector('button#paper');
-    const scissorsBtn = document.querySelector('button#scissors');
-    const pcOptions = ['rock', 'paper', 'scissors'];
-    let userChoice = '';
-    let pcChoice = '';
-    let result = '';
-    rockBtn.addEventListener('click', () => {
-        userChoice = 'rock';
-        result = winner(pcOptions, userChoice, pcChoice);
-        console.log(`result: ${result}`);
-    });
-    paperBtn.addEventListener('click', () => {
-        userChoice = 'paper';
-        result = winner(pcOptions, userChoice, pcChoice);
-        console.log(`result: ${result}`);
-    });
-    scissorsBtn.addEventListener('click', () => {
-        userChoice = 'scissors';
-        result = winner(pcOptions, userChoice, pcChoice);
-        console.log(`result: ${result}`);
-    });
-    function winner(pcOptions, userChoice, pcChoice) {
-        pcChoice = pcChoose(pcOptions);
-        console.log(`user: ${userChoice}, pc: ${pcChoice}`);
-        if (userChoice === pcChoice) {
-            return 'tie';
+    function startGame() {
+        const totalGames = 5;
+        let games = 0;
+        let userScore = 0;
+        let pcScore = 0;
+        const rockBtn = document.querySelector('button#rock');
+        const paperBtn = document.querySelector('button#paper');
+        const scissorsBtn = document.querySelector('button#scissors');
+        const userChoiceDOMElement = document.querySelector('.user-hand');
+        const pcChoiceDOMElement = document.querySelector('.pc-hand');
+        const userOptions = [rockBtn, paperBtn, scissorsBtn];
+        const pcOptions = ['rock', 'paper', 'scissors'];
+        let userChoice = '';
+        let pcChoice = '';
+        let result = '';
+        rockBtn.addEventListener('click', () => {
+            userChoice = 'rock';
+            result = winner();
+            console.log(`result: ${result}`);
+            console.log(`game number ${games}`);
+            updateDOMScores();
+            if (games === totalGames) {
+                console.log('parte game over');
+                gameOver();
+            }
+        });
+        paperBtn.addEventListener('click', () => {
+            userChoice = 'paper';
+            result = winner();
+            console.log(`result: ${result}`);
+            console.log(`game number ${games}`);
+            updateDOMScores();
+            if (games === totalGames) {
+                console.log('parte game over');
+                gameOver();
+            }
+        });
+        scissorsBtn.addEventListener('click', () => {
+            userChoice = 'scissors';
+            result = winner();
+            console.log(`result: ${result}`);
+            console.log(`game number ${games}`);
+            updateDOMScores();
+            if (games === totalGames) {
+                userOptions.forEach(option => {
+                    option.disabled = true;
+                });
+                setTimeout(gameOver, 2000);
+            }
+        });
+        function updateDOMScores() {
+            const gameResultDOMElement = document.querySelector('.game-result');
+            const userScoreDOMElement = document.querySelector('.user-score');
+            const pcScoreDOMElement = document.querySelector('.pc-score');
+            gameResultDOMElement.innerHTML = `result: ${result}`;
+            userScoreDOMElement.innerHTML = `user score: ${userScore.toString()}`;
+            pcScoreDOMElement.innerHTML = `pc score: ${pcScore.toString()}`;
         }
-        else if (userChoice === 'rock') {
-            if (pcChoice === 'paper') {
-                return 'user win';
+        function winner() {
+            games++;
+            pcChoice = pcChoose(pcOptions);
+            userChoiceDOMElement.innerHTML = `user choice: ${userChoice}`;
+            pcChoiceDOMElement.innerHTML = `pc choice: ${pcChoice}`;
+            console.log(`user: ${userChoice}, pc: ${pcChoice}`);
+            if (userChoice === pcChoice) {
+                return 'tie';
+            }
+            else if (userChoice === 'rock') {
+                if (pcChoice === 'paper') {
+                    userScore++;
+                    return 'user win';
+                }
+                else {
+                    pcScore++;
+                    return 'pc win';
+                }
+            }
+            else if (userChoice === 'paper') {
+                if (pcChoice === 'rock') {
+                    userScore++;
+                    return 'user win';
+                }
+                else {
+                    pcScore++;
+                    return 'pc win';
+                }
             }
             else {
-                return 'pc win';
+                if (pcChoice === 'paper') {
+                    userScore++;
+                    return 'user win';
+                }
+                else {
+                    pcScore++;
+                    return 'pc win';
+                }
             }
         }
-        else if (userChoice === 'paper') {
-            if (pcChoice === 'rock') {
-                return 'user win';
+        function gameOver() {
+            const container = document.querySelector('.container');
+            container.innerHTML = '';
+            const finalResult = document.createElement('h1');
+            if (userScore === pcScore) {
+                finalResult.innerHTML = "It's a TIE";
+            }
+            else if (userScore > pcScore) {
+                finalResult.innerHTML = 'You WON';
             }
             else {
-                return 'pc win';
+                finalResult.innerHTML = 'You LOSE';
             }
-        }
-        else {
-            if (pcChoice === 'paper') {
-                return 'user win';
-            }
-            else {
-                return 'pc win';
-            }
+            container.appendChild(finalResult);
+            const restartBtn = document.createElement('button');
+            restartBtn.id = 'restart-game';
+            restartBtn.innerHTML = 'restart game';
+            container.appendChild(restartBtn);
+            //logica restartBtn da implementare
+            //eventListener tempraneo
+            restartBtn.addEventListener('click', () => {
+                location.reload();
+            });
+            // restartBtn.addEventListener('click', () => {
+            //     const body: HTMLElement = document.querySelector('body') as HTMLElement;
+            //     body.innerHTML = '';
+            //     const container = document.createElement('div');
+            //     container.classList.add('container');
+            //     container.innerHTML = `
+            //     <div class="game-result">choose an hand</div>
+            //     <div class="score">
+            //         <div class="user-score">user score: 0</div>
+            //         <div class="pc-score">pc score: 0</div>
+            //     </div>
+            //     <div class="hands">
+            //         <div class="pc-hand">pc choice: undefined</div>
+            //         <div class="user-hand">user choice: undefined</div>
+            //     </div>
+            //     <div class="user-selection">
+            //         <button id="rock">rock</button>
+            //         <button id="paper">paper</button>
+            //         <button id="scissors">scissors</button>
+            //     </div>
+            //     `
+            //     startGame();
+            // });
         }
     }
     function pcChoose(pcOptions) {
         return pcOptions[Math.floor(Math.random() * pcOptions.length)];
     }
+    startGame();
 
 })();
 //# sourceMappingURL=main.js.map
