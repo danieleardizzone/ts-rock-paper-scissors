@@ -42,8 +42,11 @@
             pcChoice = pcChoose(pcOptions);
             const userChoiceDOMElement = document.querySelector('.user-hand');
             const pcChoiceDOMElement = document.querySelector('.pc-hand');
-            userChoiceDOMElement.innerHTML = `user choice: ${userChoice}`;
-            pcChoiceDOMElement.innerHTML = `pc choice: ${pcChoice}`;
+            const userChoiceImage = userChoiceDOMElement.querySelector('img');
+            const pcChoiceImage = pcChoiceDOMElement.querySelector('img');
+            const imageDirectory = './src/images/';
+            userChoiceImage.src = `${imageDirectory + userChoice}.png`;
+            pcChoiceImage.src = `${imageDirectory + pcChoice}.png`;
             console.log(`user: ${userChoice}, pc: ${pcChoice}`);
             if (userChoice === pcChoice) {
                 return 'tie';

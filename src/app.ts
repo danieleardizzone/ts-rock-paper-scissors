@@ -58,9 +58,13 @@ function startGame(): void {
 
         const userChoiceDOMElement: HTMLElement = document.querySelector('.user-hand') as HTMLElement;
         const pcChoiceDOMElement: HTMLElement = document.querySelector('.pc-hand') as HTMLElement;
+        const userChoiceImage: HTMLImageElement = userChoiceDOMElement.querySelector('img') as HTMLImageElement;
+        const pcChoiceImage: HTMLImageElement = pcChoiceDOMElement.querySelector('img') as HTMLImageElement;
 
-        userChoiceDOMElement.innerHTML = `user choice: ${userChoice}`;
-        pcChoiceDOMElement.innerHTML = `pc choice: ${pcChoice}`;
+        const imageDirectory: string = './src/images/';
+
+        userChoiceImage.src = `${imageDirectory + userChoice}.png`
+        pcChoiceImage.src = `${imageDirectory + pcChoice}.png`
 
         console.log(`user: ${userChoice}, pc: ${pcChoice}`);
 
