@@ -9,8 +9,6 @@
         const rockBtn = document.querySelector('button#rock');
         const paperBtn = document.querySelector('button#paper');
         const scissorsBtn = document.querySelector('button#scissors');
-        const userChoiceDOMElement = document.querySelector('.user-hand');
-        const pcChoiceDOMElement = document.querySelector('.pc-hand');
         const userOptions = [rockBtn, paperBtn, scissorsBtn];
         const pcOptions = ['rock', 'paper', 'scissors'];
         let userChoice = '';
@@ -18,50 +16,32 @@
         let result = '';
         rockBtn.addEventListener('click', () => {
             userChoice = 'rock';
-            result = winner();
-            console.log(`result: ${result}`);
-            console.log(`match number ${matches}`);
-            updateDOMScores();
-            if (matches === totalMatches) {
-                console.log('parte game over');
-                gameOver();
-            }
         });
         paperBtn.addEventListener('click', () => {
             userChoice = 'paper';
-            result = winner();
-            console.log(`result: ${result}`);
-            console.log(`game number ${matches}`);
-            updateDOMScores();
-            if (matches === totalMatches) {
-                console.log('parte game over');
-                gameOver();
-            }
         });
         scissorsBtn.addEventListener('click', () => {
             userChoice = 'scissors';
-            result = winner();
-            console.log(`result: ${result}`);
-            console.log(`game number ${matches}`);
-            updateDOMScores();
-            if (matches === totalMatches) {
-                userOptions.forEach(option => {
-                    option.disabled = true;
-                });
-                setTimeout(gameOver, 2000);
-            }
         });
-        function updateDOMScores() {
-            const matchResultDOMElement = document.querySelector('.match-result');
-            const userScoreDOMElement = document.querySelector('.user-score');
-            const pcScoreDOMElement = document.querySelector('.pc-score');
-            matchResultDOMElement.innerHTML = `result: ${result}`;
-            userScoreDOMElement.innerHTML = `user score: ${userScore.toString()}`;
-            pcScoreDOMElement.innerHTML = `pc score: ${pcScore.toString()}`;
-        }
+        userOptions.forEach(userOption => {
+            userOption.addEventListener('click', () => {
+                result = winner();
+                console.log(`result: ${result}`);
+                console.log(`game number ${matches}`);
+                updateDOMScores();
+                if (matches === totalMatches) {
+                    userOptions.forEach(option => {
+                        option.disabled = true;
+                    });
+                    setTimeout(gameOver, 2000);
+                }
+            });
+        });
         function winner() {
             matches++;
             pcChoice = pcChoose(pcOptions);
+            const userChoiceDOMElement = document.querySelector('.user-hand');
+            const pcChoiceDOMElement = document.querySelector('.pc-hand');
             userChoiceDOMElement.innerHTML = `user choice: ${userChoice}`;
             pcChoiceDOMElement.innerHTML = `pc choice: ${pcChoice}`;
             console.log(`user: ${userChoice}, pc: ${pcChoice}`);
@@ -98,6 +78,14 @@
                     return 'pc win';
                 }
             }
+        }
+        function updateDOMScores() {
+            const matchResultDOMElement = document.querySelector('.match-result');
+            const userScoreDOMElement = document.querySelector('.user-score');
+            const pcScoreDOMElement = document.querySelector('.pc-score');
+            matchResultDOMElement.innerHTML = `result: ${result}`;
+            userScoreDOMElement.innerHTML = `user score: ${userScore.toString()}`;
+            pcScoreDOMElement.innerHTML = `pc score: ${pcScore.toString()}`;
         }
         function gameOver() {
             const container = document.querySelector('.container');
