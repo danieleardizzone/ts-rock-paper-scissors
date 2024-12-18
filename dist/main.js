@@ -2,8 +2,8 @@
     'use strict';
 
     function startGame() {
-        const totalGames = 5;
-        let games = 0;
+        const totalMatches = 5;
+        let matches = 0;
         let userScore = 0;
         let pcScore = 0;
         const rockBtn = document.querySelector('button#rock');
@@ -20,9 +20,9 @@
             userChoice = 'rock';
             result = winner();
             console.log(`result: ${result}`);
-            console.log(`game number ${games}`);
+            console.log(`match number ${matches}`);
             updateDOMScores();
-            if (games === totalGames) {
+            if (matches === totalMatches) {
                 console.log('parte game over');
                 gameOver();
             }
@@ -31,9 +31,9 @@
             userChoice = 'paper';
             result = winner();
             console.log(`result: ${result}`);
-            console.log(`game number ${games}`);
+            console.log(`game number ${matches}`);
             updateDOMScores();
-            if (games === totalGames) {
+            if (matches === totalMatches) {
                 console.log('parte game over');
                 gameOver();
             }
@@ -42,9 +42,9 @@
             userChoice = 'scissors';
             result = winner();
             console.log(`result: ${result}`);
-            console.log(`game number ${games}`);
+            console.log(`game number ${matches}`);
             updateDOMScores();
-            if (games === totalGames) {
+            if (matches === totalMatches) {
                 userOptions.forEach(option => {
                     option.disabled = true;
                 });
@@ -52,15 +52,15 @@
             }
         });
         function updateDOMScores() {
-            const gameResultDOMElement = document.querySelector('.game-result');
+            const matchResultDOMElement = document.querySelector('.match-result');
             const userScoreDOMElement = document.querySelector('.user-score');
             const pcScoreDOMElement = document.querySelector('.pc-score');
-            gameResultDOMElement.innerHTML = `result: ${result}`;
+            matchResultDOMElement.innerHTML = `result: ${result}`;
             userScoreDOMElement.innerHTML = `user score: ${userScore.toString()}`;
             pcScoreDOMElement.innerHTML = `pc score: ${pcScore.toString()}`;
         }
         function winner() {
-            games++;
+            matches++;
             pcChoice = pcChoose(pcOptions);
             userChoiceDOMElement.innerHTML = `user choice: ${userChoice}`;
             pcChoiceDOMElement.innerHTML = `pc choice: ${pcChoice}`;
