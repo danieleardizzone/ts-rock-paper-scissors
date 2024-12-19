@@ -9,6 +9,12 @@ function startGame(): void {
     const paperBtn: HTMLButtonElement = document.querySelector('button#paper') as HTMLButtonElement;
     const scissorsBtn: HTMLButtonElement = document.querySelector('button#scissors') as HTMLButtonElement;
 
+    const userChoiceDOMElement: HTMLElement = document.querySelector('.user-hand') as HTMLElement;
+    const pcChoiceDOMElement: HTMLElement = document.querySelector('.pc-hand') as HTMLElement;
+    const userChoiceImage: HTMLImageElement = userChoiceDOMElement.querySelector('img') as HTMLImageElement;
+    const pcChoiceImage: HTMLImageElement = pcChoiceDOMElement.querySelector('img') as HTMLImageElement;
+    const imgDirectory: string = './src/images/';
+
     const userOptions: HTMLButtonElement[] = [rockBtn, paperBtn, scissorsBtn];
 
     const pcOptions: string[] = ['rock', 'paper', 'scissors'];
@@ -33,7 +39,59 @@ function startGame(): void {
 
         userOption.addEventListener('click', () => {
 
-            result = winner();
+            userOption.disabled = true;
+
+            matches++
+
+            pcChoice = pcChoose(pcOptions);
+
+            handAnimation();
+
+            // logica continua in handAnimation
+            // pcChoiceImage.animate(
+            //     pcHandShaking,
+            //     shakeTiming
+            // ).onfinish = () => { continua logica}
+        });
+
+    });
+
+    function handAnimation(): void {
+
+        userChoiceImage.src = `${imgDirectory}rock.png`;
+        pcChoiceImage.src = `${imgDirectory}rock.png`;
+
+        const userHandShaking = [
+            { rotate: '-90deg' },
+            { rotate: '-45deg' },
+            { rotate: '-90deg' },
+        ];
+
+        const pcHandShaking = [
+            { rotate: '90deg' },
+            { rotate: '45deg' },
+            { rotate: '90deg' },
+        ];
+
+        const shakeTiming: KeyframeAnimationOptions = {
+            duration: 800,
+            iterations: 3,
+        };
+
+        userChoiceImage.animate(
+            userHandShaking,
+            shakeTiming
+        ).onfinish = () => {
+            userChoiceImage.src = `${imgDirectory + userChoice}.png`;
+        };
+
+        pcChoiceImage.animate(
+            pcHandShaking,
+            shakeTiming
+        ).onfinish = () => {
+            pcChoiceImage.src = `${imgDirectory + pcChoice}.png`;
+
+            winner();
 
             console.log(`result: ${result}`);
             console.log(`game number ${matches}`)
@@ -41,58 +99,44 @@ function startGame(): void {
             updateDOMScores();
 
             if (matches === totalMatches) {
-                userOptions.forEach(option => {
-                    option.disabled = true;
-                });
                 setTimeout(gameOver, 2000);
+            } else {
+                userOptions.forEach(userOption => {
+                    userOption.disabled = false;
+                });
             }
-        });
 
-    });
+        };
 
-    function winner(): string {
+    }
 
-        matches++
-
-        pcChoice = pcChoose(pcOptions);
-
-        const userChoiceDOMElement: HTMLElement = document.querySelector('.user-hand') as HTMLElement;
-        const pcChoiceDOMElement: HTMLElement = document.querySelector('.pc-hand') as HTMLElement;
-        const userChoiceImage: HTMLImageElement = userChoiceDOMElement.querySelector('img') as HTMLImageElement;
-        const pcChoiceImage: HTMLImageElement = pcChoiceDOMElement.querySelector('img') as HTMLImageElement;
-
-        const imageDirectory: string = './src/images/';
-
-        userChoiceImage.src = `${imageDirectory + userChoice}.png`
-        pcChoiceImage.src = `${imageDirectory + pcChoice}.png`
-
-        console.log(`user: ${userChoice}, pc: ${pcChoice}`);
+    function winner(): void {
 
         if (userChoice === pcChoice) {
-            return 'tie';
+            result = 'tie';
         } else if (userChoice === 'rock') {
             if (pcChoice === 'paper') {
                 userScore++;
-                return 'user win';
+                result = 'user win';
             } else {
                 pcScore++
-                return 'pc win';
+                result = 'pc win';
             }
         } else if (userChoice === 'paper') {
             if (pcChoice === 'rock') {
                 userScore++;
-                return 'user win';
+                result = 'user win';
             } else {
                 pcScore++
-                return 'pc win';
+                result = 'pc win';
             }
         } else {
             if (pcChoice === 'paper') {
                 userScore++;
-                return 'user win';
+                result = 'user win';
             } else {
                 pcScore++
-                return 'pc win';
+                result = 'pc win';
             }
         }
     }
@@ -171,5 +215,7 @@ function startGame(): void {
 function pcChoose(pcOptions: string[]): string {
     return pcOptions[Math.floor(Math.random() * pcOptions.length)]
 }
+
+
 
 startGame();

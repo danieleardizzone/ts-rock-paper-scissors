@@ -9,6 +9,11 @@
         const rockBtn = document.querySelector('button#rock');
         const paperBtn = document.querySelector('button#paper');
         const scissorsBtn = document.querySelector('button#scissors');
+        const userChoiceDOMElement = document.querySelector('.user-hand');
+        const pcChoiceDOMElement = document.querySelector('.pc-hand');
+        const userChoiceImage = userChoiceDOMElement.querySelector('img');
+        const pcChoiceImage = pcChoiceDOMElement.querySelector('img');
+        const imgDirectory = './src/images/';
         const userOptions = [rockBtn, paperBtn, scissorsBtn];
         const pcOptions = ['rock', 'paper', 'scissors'];
         let userChoice = '';
@@ -25,60 +30,80 @@
         });
         userOptions.forEach(userOption => {
             userOption.addEventListener('click', () => {
-                result = winner();
+                userOption.disabled = true;
+                matches++;
+                pcChoice = pcChoose(pcOptions);
+                handAnimation();
+            });
+        });
+        function handAnimation() {
+            userChoiceImage.src = `${imgDirectory}rock.png`;
+            pcChoiceImage.src = `${imgDirectory}rock.png`;
+            const userHandShaking = [
+                { rotate: '-90deg' },
+                { rotate: '-45deg' },
+                { rotate: '-90deg' },
+            ];
+            const pcHandShaking = [
+                { rotate: '90deg' },
+                { rotate: '45deg' },
+                { rotate: '90deg' },
+            ];
+            const shakeTiming = {
+                duration: 800,
+                iterations: 3,
+            };
+            userChoiceImage.animate(userHandShaking, shakeTiming).onfinish = () => {
+                userChoiceImage.src = `${imgDirectory + userChoice}.png`;
+            };
+            pcChoiceImage.animate(pcHandShaking, shakeTiming).onfinish = () => {
+                pcChoiceImage.src = `${imgDirectory + pcChoice}.png`;
+                winner();
                 console.log(`result: ${result}`);
                 console.log(`game number ${matches}`);
                 updateDOMScores();
                 if (matches === totalMatches) {
-                    userOptions.forEach(option => {
-                        option.disabled = true;
-                    });
                     setTimeout(gameOver, 2000);
                 }
-            });
-        });
+                else {
+                    userOptions.forEach(userOption => {
+                        userOption.disabled = false;
+                    });
+                }
+            };
+        }
         function winner() {
-            matches++;
-            pcChoice = pcChoose(pcOptions);
-            const userChoiceDOMElement = document.querySelector('.user-hand');
-            const pcChoiceDOMElement = document.querySelector('.pc-hand');
-            const userChoiceImage = userChoiceDOMElement.querySelector('img');
-            const pcChoiceImage = pcChoiceDOMElement.querySelector('img');
-            const imageDirectory = './src/images/';
-            userChoiceImage.src = `${imageDirectory + userChoice}.png`;
-            pcChoiceImage.src = `${imageDirectory + pcChoice}.png`;
-            console.log(`user: ${userChoice}, pc: ${pcChoice}`);
             if (userChoice === pcChoice) {
-                return 'tie';
+                result = 'tie';
             }
             else if (userChoice === 'rock') {
                 if (pcChoice === 'paper') {
                     userScore++;
-                    return 'user win';
+                    result = 'user win';
                 }
                 else {
                     pcScore++;
-                    return 'pc win';
+                    result = 'pc win';
                 }
             }
             else if (userChoice === 'paper') {
                 if (pcChoice === 'rock') {
                     userScore++;
-                    return 'user win';
+                    result = 'user win';
                 }
                 else {
                     pcScore++;
-                    return 'pc win';
+                    result = 'pc win';
                 }
             }
             else {
                 if (pcChoice === 'paper') {
                     userScore++;
-                    return 'user win';
+                    result = 'user win';
                 }
                 else {
                     pcScore++;
-                    return 'pc win';
+                    result = 'pc win';
                 }
             }
         }
