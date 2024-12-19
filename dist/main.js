@@ -14,6 +14,7 @@
         const userChoiceImage = userChoiceDOMElement.querySelector('img');
         const pcChoiceImage = pcChoiceDOMElement.querySelector('img');
         const imgDirectory = './src/images/';
+        const shakeSound = new Audio('./src/audios/rock-paper-scissors.mp3');
         const userOptions = [rockBtn, paperBtn, scissorsBtn];
         const pcOptions = ['rock', 'paper', 'scissors'];
         let userChoice = '';
@@ -34,6 +35,11 @@
                 matches++;
                 pcChoice = pcChoose(pcOptions);
                 handAnimation();
+                // logica continua in handAnimation
+                // pcChoiceImage.animate(
+                //     pcHandShaking,
+                //     shakeTiming
+                // ).onfinish = () => { continua logica}
             });
         });
         function handAnimation() {
@@ -41,18 +47,19 @@
             pcChoiceImage.src = `${imgDirectory}rock.png`;
             const userHandShaking = [
                 { rotate: '-90deg' },
-                { rotate: '-45deg' },
+                { rotate: '-60deg' },
                 { rotate: '-90deg' },
             ];
             const pcHandShaking = [
                 { rotate: '90deg' },
-                { rotate: '45deg' },
+                { rotate: '60deg' },
                 { rotate: '90deg' },
             ];
             const shakeTiming = {
-                duration: 800,
+                duration: 500,
                 iterations: 3,
             };
+            shakeSound.play();
             userChoiceImage.animate(userHandShaking, shakeTiming).onfinish = () => {
                 userChoiceImage.src = `${imgDirectory + userChoice}.png`;
             };

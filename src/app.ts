@@ -15,6 +15,8 @@ function startGame(): void {
     const pcChoiceImage: HTMLImageElement = pcChoiceDOMElement.querySelector('img') as HTMLImageElement;
     const imgDirectory: string = './src/images/';
 
+    const shakeSound = new Audio('./src/audios/rock-paper-scissors.mp3');
+
     const userOptions: HTMLButtonElement[] = [rockBtn, paperBtn, scissorsBtn];
 
     const pcOptions: string[] = ['rock', 'paper', 'scissors'];
@@ -63,20 +65,22 @@ function startGame(): void {
 
         const userHandShaking = [
             { rotate: '-90deg' },
-            { rotate: '-45deg' },
+            { rotate: '-60deg' },
             { rotate: '-90deg' },
         ];
 
         const pcHandShaking = [
             { rotate: '90deg' },
-            { rotate: '45deg' },
+            { rotate: '60deg' },
             { rotate: '90deg' },
         ];
 
         const shakeTiming: KeyframeAnimationOptions = {
-            duration: 800,
+            duration: 500,
             iterations: 3,
         };
+
+        shakeSound.play();
 
         userChoiceImage.animate(
             userHandShaking,
