@@ -11,9 +11,8 @@
 </head>
 
 <body>
-
     <div class="container">
-        <div class="match-result">choose an hand</div>
+        <div class="match-count">match 1 / 5</div>
         <div class="score">
             <div class="user-score">user score: 0</div>
             <div class="pc-score">pc score: 0</div>
@@ -40,7 +39,11 @@
             </button>
         </div>
     </div>
-
+    <div class="overlay visibility-hidden">
+        <div class="match-result visibility-hidden"></div>
+        <h1 class="final-result visibility-hidden"></h1>
+        <button id="restart-game" class="visibility-hidden">Restart game</button>
+    </div>
 </body>
 
 </html>

@@ -69,6 +69,7 @@
                 console.log(`result: ${result}`);
                 console.log(`game number ${matches}`);
                 updateDOMScores();
+                showResult();
                 if (matches === totalMatches) {
                     setTimeout(gameOver, 2000);
                 }
@@ -79,52 +80,71 @@
         }
         function winner() {
             if (userChoice === pcChoice) {
-                result = 'tie';
+                result = "It's a Tie";
             }
             else if (userChoice === 'rock') {
                 if (pcChoice === 'paper') {
                     userScore++;
-                    result = 'user win';
+                    result = 'You Win';
                 }
                 else {
                     pcScore++;
-                    result = 'pc win';
+                    result = 'You Lose';
                 }
             }
             else if (userChoice === 'paper') {
                 if (pcChoice === 'rock') {
                     userScore++;
-                    result = 'user win';
+                    result = 'You Win';
                 }
                 else {
                     pcScore++;
-                    result = 'pc win';
+                    result = 'You Lose';
                 }
             }
             else {
                 if (pcChoice === 'paper') {
                     userScore++;
-                    result = 'user win';
+                    result = 'You Win';
                 }
                 else {
                     pcScore++;
-                    result = 'pc win';
+                    result = 'You Lose';
                 }
             }
         }
         function updateDOMScores() {
             const matchResultDOMElement = document.querySelector('.match-result');
+            const matchCountDOMElement = document.querySelector('.match-count');
             const userScoreDOMElement = document.querySelector('.user-score');
             const pcScoreDOMElement = document.querySelector('.pc-score');
-            matchResultDOMElement.innerHTML = `result: ${result}`;
+            matchResultDOMElement.innerHTML = `${result}`;
+            matchCountDOMElement.innerHTML = `Match ${matches} / ${totalMatches}`;
             userScoreDOMElement.innerHTML = `user score: ${userScore.toString()}`;
             pcScoreDOMElement.innerHTML = `pc score: ${pcScore.toString()}`;
         }
-        function gameOver() {
-            disableArrBtns(userOptions);
+        function showResult() {
+            const overlay = document.querySelector('.overlay');
+            const matchResultDOMElement = document.querySelector('.match-result');
             const container = document.querySelector('.container');
-            container.innerHTML = '';
-            const finalResult = document.createElement('h1');
+            overlay.classList.remove('visibility-hidden');
+            matchResultDOMElement.classList.remove('visibility-hidden');
+            container.classList.add('disabled');
+            setTimeout(() => {
+                overlay.classList.add('visibility-hidden');
+                matchResultDOMElement.classList.add('visibility-hidden');
+                container.classList.remove('disabled');
+            }, 1500);
+        }
+        function gameOver() {
+            const overlay = document.querySelector('.overlay');
+            const finalResult = document.querySelector('.final-result');
+            const restartBtn = document.querySelector('#restart-game');
+            const container = document.querySelector('.container');
+            overlay.classList.remove('visibility-hidden');
+            finalResult.classList.remove('visibility-hidden');
+            restartBtn.classList.remove('visibility-hidden');
+            container.classList.add('disabled');
             if (userScore === pcScore) {
                 finalResult.innerHTML = "It's a TIE";
             }
@@ -134,11 +154,6 @@
             else {
                 finalResult.innerHTML = 'You LOSE';
             }
-            container.appendChild(finalResult);
-            const restartBtn = document.createElement('button');
-            restartBtn.id = 'restart-game';
-            restartBtn.innerHTML = 'restart game';
-            container.appendChild(restartBtn);
             //logica restartBtn da implementare
             //eventListener tempraneo
             restartBtn.addEventListener('click', () => {
