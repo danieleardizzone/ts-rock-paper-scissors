@@ -64,15 +64,15 @@ function startGame(): void {
         pcChoiceImage.src = `${imgDirectory}rock.png`;
 
         const userHandShaking = [
-            { rotate: '-90deg' },
-            { rotate: '-60deg' },
-            { rotate: '-90deg' },
+            { transform: 'rotate(-90deg) scaleX(-1)' },
+            { transform: 'rotate(-60deg) scaleX(-1)' },
+            { transform: 'rotate(-90deg) scaleX(-1)' },
         ];
 
         const pcHandShaking = [
-            { rotate: '90deg' },
-            { rotate: '60deg' },
-            { rotate: '90deg' },
+            { transform: 'rotate(90deg)' },
+            { transform: 'rotate(60deg)' },
+            { transform: 'rotate(90deg)' },
         ];
 
         const shakeTiming: KeyframeAnimationOptions = {

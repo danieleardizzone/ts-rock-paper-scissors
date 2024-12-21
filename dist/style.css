@@ -54,14 +54,22 @@ button {
     .pc-hand {
 
         img {
-            rotate: 90deg;
+            /* rotate: 90deg; */
+
+            transform: rotate(90deg);
+            transform-origin: center bottom;
+
+            translate: -50% -50%;
         }
     }
 
     .user-hand {
 
         img {
-            rotate: -90deg;
+            transform: rotate(-90deg) scaleX(-1);
+            transform-origin: center bottom;
+
+            translate: 50% -50%;
         }
     }
 
