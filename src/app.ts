@@ -41,7 +41,7 @@ function startGame(): void {
 
         userOption.addEventListener('click', () => {
 
-            userOption.disabled = true;
+            disableArrBtns(userOptions);
 
             matches++
 
@@ -105,9 +105,7 @@ function startGame(): void {
             if (matches === totalMatches) {
                 setTimeout(gameOver, 2000);
             } else {
-                userOptions.forEach(userOption => {
-                    userOption.disabled = false;
-                });
+                enableArrBtns(userOptions);
             }
 
         };
@@ -156,6 +154,8 @@ function startGame(): void {
     }
 
     function gameOver(): void {
+        disableArrBtns(userOptions);
+
         const container: HTMLElement = document.querySelector('.container') as HTMLElement;
         container.innerHTML = '';
 
@@ -218,6 +218,18 @@ function startGame(): void {
 
 function pcChoose(pcOptions: string[]): string {
     return pcOptions[Math.floor(Math.random() * pcOptions.length)]
+}
+
+function disableArrBtns(arrBtns: HTMLButtonElement[]): void {
+    arrBtns.forEach(Btn => {
+        Btn.disabled = true;
+    });
+}
+
+function enableArrBtns(arrBtns: HTMLButtonElement[]): void {
+    arrBtns.forEach(Btn => {
+        Btn.disabled = false;
+    });
 }
 
 

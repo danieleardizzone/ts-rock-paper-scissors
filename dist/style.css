@@ -31,9 +31,21 @@ button {
     cursor: pointer;
 }
 
-button img {
-    width: 100px;
-    aspect-ratio: 1;
+.user-selection {
+    button {
+
+        border: 1px solid black;
+
+        img {
+            width: 100px;
+            aspect-ratio: 1;
+        }
+
+        &:disabled {
+            border: 1px solid red;
+        }
+
+    }
 }
 
 .hands {

@@ -31,7 +31,7 @@
         });
         userOptions.forEach(userOption => {
             userOption.addEventListener('click', () => {
-                userOption.disabled = true;
+                disableArrBtns(userOptions);
                 matches++;
                 pcChoice = pcChoose(pcOptions);
                 handAnimation();
@@ -73,9 +73,7 @@
                     setTimeout(gameOver, 2000);
                 }
                 else {
-                    userOptions.forEach(userOption => {
-                        userOption.disabled = false;
-                    });
+                    enableArrBtns(userOptions);
                 }
             };
         }
@@ -123,6 +121,7 @@
             pcScoreDOMElement.innerHTML = `pc score: ${pcScore.toString()}`;
         }
         function gameOver() {
+            disableArrBtns(userOptions);
             const container = document.querySelector('.container');
             container.innerHTML = '';
             const finalResult = document.createElement('h1');
@@ -172,6 +171,16 @@
     }
     function pcChoose(pcOptions) {
         return pcOptions[Math.floor(Math.random() * pcOptions.length)];
+    }
+    function disableArrBtns(arrBtns) {
+        arrBtns.forEach(Btn => {
+            Btn.disabled = true;
+        });
+    }
+    function enableArrBtns(arrBtns) {
+        arrBtns.forEach(Btn => {
+            Btn.disabled = false;
+        });
     }
     startGame();
 
