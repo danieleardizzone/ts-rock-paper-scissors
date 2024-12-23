@@ -69,9 +69,8 @@
                 console.log(`result: ${result}`);
                 console.log(`game number ${matches}`);
                 updateDOMScores();
-                showResult();
                 if (matches === totalMatches) {
-                    setTimeout(gameOver, 2000);
+                    setTimeout(gameOver, 1500);
                 }
                 else {
                     enableArrBtns(userOptions);
@@ -83,7 +82,7 @@
                 result = "It's a Tie";
             }
             else if (userChoice === 'rock') {
-                if (pcChoice === 'paper') {
+                if (pcChoice === 'scissors') {
                     userScore++;
                     result = 'You Win';
                 }
@@ -123,19 +122,19 @@
             userScoreDOMElement.innerHTML = `user score: ${userScore.toString()}`;
             pcScoreDOMElement.innerHTML = `pc score: ${pcScore.toString()}`;
         }
-        function showResult() {
-            const overlay = document.querySelector('.overlay');
-            const matchResultDOMElement = document.querySelector('.match-result');
-            const container = document.querySelector('.container');
-            overlay.classList.remove('visibility-hidden');
-            matchResultDOMElement.classList.remove('visibility-hidden');
-            container.classList.add('disabled');
-            setTimeout(() => {
-                overlay.classList.add('visibility-hidden');
-                matchResultDOMElement.classList.add('visibility-hidden');
-                container.classList.remove('disabled');
-            }, 1500);
-        }
+        // function showResult(): void {
+        //     const overlay: HTMLElement = document.querySelector('.overlay') as HTMLElement;
+        //     const matchResultDOMElement: HTMLElement = document.querySelector('.match-result') as HTMLElement;
+        //     const container: HTMLElement = document.querySelector('.container') as HTMLElement;
+        //     overlay.classList.remove('visibility-hidden');
+        //     matchResultDOMElement.classList.remove('visibility-hidden');
+        //     container.classList.add('disabled');
+        //     setTimeout(() => {
+        //         overlay.classList.add('visibility-hidden');
+        //         matchResultDOMElement.classList.add('visibility-hidden');
+        //         container.classList.remove('disabled');
+        //     }, 1500);
+        // }
         function gameOver() {
             const overlay = document.querySelector('.overlay');
             const finalResult = document.querySelector('.final-result');
