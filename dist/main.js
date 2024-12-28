@@ -66,8 +66,6 @@
             pcChoiceImage.animate(pcHandShaking, shakeTiming).onfinish = () => {
                 pcChoiceImage.src = `${imgDirectory + pcChoice}.png`;
                 winner();
-                console.log(`result: ${result}`);
-                console.log(`game number ${matches}`);
                 updateDOMScores();
                 if (matches === totalMatches) {
                     setTimeout(gameOver, 1500);
@@ -115,26 +113,15 @@
         function updateDOMScores() {
             const matchResultDOMElement = document.querySelector('.match-result');
             const matchCountDOMElement = document.querySelector('.match-count');
-            const userScoreDOMElement = document.querySelector('.user-score');
+            const playerScoreDOMElement = document.querySelector('.player-score');
+            const playerScoreNumber = playerScoreDOMElement.querySelector('.score-number');
             const pcScoreDOMElement = document.querySelector('.pc-score');
+            const pcScoreNumber = pcScoreDOMElement.querySelector('.score-number');
             matchResultDOMElement.innerHTML = `${result}`;
             matchCountDOMElement.innerHTML = `Match ${matches} / ${totalMatches}`;
-            userScoreDOMElement.innerHTML = `user score: ${userScore.toString()}`;
-            pcScoreDOMElement.innerHTML = `pc score: ${pcScore.toString()}`;
+            playerScoreNumber.innerHTML = userScore.toString();
+            pcScoreNumber.innerHTML = pcScore.toString();
         }
-        // function showResult(): void {
-        //     const overlay: HTMLElement = document.querySelector('.overlay') as HTMLElement;
-        //     const matchResultDOMElement: HTMLElement = document.querySelector('.match-result') as HTMLElement;
-        //     const container: HTMLElement = document.querySelector('.container') as HTMLElement;
-        //     overlay.classList.remove('visibility-hidden');
-        //     matchResultDOMElement.classList.remove('visibility-hidden');
-        //     container.classList.add('disabled');
-        //     setTimeout(() => {
-        //         overlay.classList.add('visibility-hidden');
-        //         matchResultDOMElement.classList.add('visibility-hidden');
-        //         container.classList.remove('disabled');
-        //     }, 1500);
-        // }
         function gameOver() {
             const overlay = document.querySelector('.overlay');
             const finalResult = document.querySelector('.final-result');
@@ -145,13 +132,13 @@
             restartBtn.classList.remove('visibility-hidden');
             container.classList.add('disabled');
             if (userScore === pcScore) {
-                finalResult.innerHTML = "It's a TIE";
+                finalResult.innerHTML = "It's a Tie";
             }
             else if (userScore > pcScore) {
-                finalResult.innerHTML = 'You WON';
+                finalResult.innerHTML = 'You Won';
             }
             else {
-                finalResult.innerHTML = 'You LOSE';
+                finalResult.innerHTML = 'You Lose';
             }
             //logica restartBtn da implementare
             //eventListener tempraneo

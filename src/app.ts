@@ -97,9 +97,6 @@ function startGame(): void {
 
             winner();
 
-            console.log(`result: ${result}`);
-            console.log(`game number ${matches}`)
-
             updateDOMScores();
 
             if (matches === totalMatches) {
@@ -148,30 +145,16 @@ function startGame(): void {
     function updateDOMScores(): void {
         const matchResultDOMElement: HTMLElement = document.querySelector('.match-result') as HTMLElement;
         const matchCountDOMElement: HTMLElement = document.querySelector('.match-count') as HTMLElement;
-        const userScoreDOMElement: HTMLElement = document.querySelector('.user-score') as HTMLElement;
+        const playerScoreDOMElement: HTMLElement = document.querySelector('.player-score') as HTMLElement;
+        const playerScoreNumber: HTMLSpanElement = playerScoreDOMElement.querySelector('.score-number') as HTMLSpanElement;
         const pcScoreDOMElement: HTMLElement = document.querySelector('.pc-score') as HTMLElement;
+        const pcScoreNumber: HTMLSpanElement = pcScoreDOMElement.querySelector('.score-number') as HTMLSpanElement;
 
         matchResultDOMElement.innerHTML = `${result}`;
         matchCountDOMElement.innerHTML = `Match ${matches} / ${totalMatches}`
-        userScoreDOMElement.innerHTML = `user score: ${userScore.toString()}`;
-        pcScoreDOMElement.innerHTML = `pc score: ${pcScore.toString()}`;
+        playerScoreNumber.innerHTML = userScore.toString();
+        pcScoreNumber.innerHTML = pcScore.toString();
     }
-
-    // function showResult(): void {
-    //     const overlay: HTMLElement = document.querySelector('.overlay') as HTMLElement;
-    //     const matchResultDOMElement: HTMLElement = document.querySelector('.match-result') as HTMLElement;
-    //     const container: HTMLElement = document.querySelector('.container') as HTMLElement;
-
-    //     overlay.classList.remove('visibility-hidden');
-    //     matchResultDOMElement.classList.remove('visibility-hidden');
-    //     container.classList.add('disabled');
-
-    //     setTimeout(() => {
-    //         overlay.classList.add('visibility-hidden');
-    //         matchResultDOMElement.classList.add('visibility-hidden');
-    //         container.classList.remove('disabled');
-    //     }, 1500);
-    // }
 
     function gameOver(): void {
         const overlay: HTMLElement = document.querySelector('.overlay') as HTMLElement;
@@ -185,11 +168,11 @@ function startGame(): void {
         container.classList.add('disabled');
 
         if (userScore === pcScore) {
-            finalResult.innerHTML = "It's a TIE";
+            finalResult.innerHTML = "It's a Tie";
         } else if (userScore > pcScore) {
-            finalResult.innerHTML = 'You WON';
+            finalResult.innerHTML = 'You Won';
         } else {
-            finalResult.innerHTML = 'You LOSE';
+            finalResult.innerHTML = 'You Lose';
         }
 
         //logica restartBtn da implementare
