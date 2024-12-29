@@ -230,10 +230,23 @@ button {
 @media (max-width: 410px) {
 
     .hands {
-        gap: 30px;
+        gap: 5px;
 
         img {
-            width: 165px;
+            width: 150px;
+        }
+    }
+
+    .user-selection {
+
+        gap: 5px;
+
+        button {
+            padding: 5px;
+
+            img {
+                width: 85px;
+            }
         }
     }
 
