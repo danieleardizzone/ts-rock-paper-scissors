@@ -45,8 +45,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 70px;
+    justify-content: space-around;
 
     &.disabled {
         pointer-events: none;
@@ -97,6 +96,11 @@ button {
 .hands {
     display: flex;
     gap: 150px;
+
+    [class$=-hand] {
+        display: flex;
+        flex-direction: column;
+    }
 
     .pc-hand {
 
@@ -180,8 +184,8 @@ button {
 
         img {
             width: 250px;
-            aspect-ratio: 1;
         }
+
     }
 
     .user-selection {
@@ -193,6 +197,43 @@ button {
             img {
                 width: 120px;
             }
+        }
+    }
+
+}
+
+@media (max-width: 580px) {
+
+    .hands {
+        gap: 50px;
+
+        img {
+            width: 180px;
+        }
+    }
+
+    .user-selection {
+
+        gap: 8px;
+
+        button {
+            padding: 8px;
+
+            img {
+                width: 90px;
+            }
+        }
+    }
+
+}
+
+@media (max-width: 410px) {
+
+    .hands {
+        gap: 30px;
+
+        img {
+            width: 165px;
         }
     }
 
