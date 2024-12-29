@@ -43,6 +43,8 @@ function startGame(): void {
 
             disableArrBtns(userOptions);
 
+            userOption.classList.add('selected');
+
             matches++
 
             pcChoice = pcChoose(pcOptions);
@@ -82,6 +84,8 @@ function startGame(): void {
 
         shakeSound.play();
 
+
+
         userChoiceImage.animate(
             userHandShaking,
             shakeTiming
@@ -98,6 +102,12 @@ function startGame(): void {
             winner();
 
             updateDOMScores();
+
+            userOptions.forEach(userOption => {
+                if (userOption.classList.contains('selected')) {
+                    userOption.classList.remove('selected');
+                }
+            });
 
             if (matches === totalMatches) {
                 setTimeout(gameOver, 1500);

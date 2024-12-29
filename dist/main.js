@@ -32,6 +32,7 @@
         userOptions.forEach(userOption => {
             userOption.addEventListener('click', () => {
                 disableArrBtns(userOptions);
+                userOption.classList.add('selected');
                 matches++;
                 pcChoice = pcChoose(pcOptions);
                 handAnimation();
@@ -67,6 +68,11 @@
                 pcChoiceImage.src = `${imgDirectory + pcChoice}.png`;
                 winner();
                 updateDOMScores();
+                userOptions.forEach(userOption => {
+                    if (userOption.classList.contains('selected')) {
+                        userOption.classList.remove('selected');
+                    }
+                });
                 if (matches === totalMatches) {
                     setTimeout(gameOver, 1500);
                 }
