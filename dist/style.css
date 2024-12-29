@@ -148,7 +148,6 @@ button {
 
     button {
 
-        /* border: 1px solid black; */
         padding: 20px;
         background-color: #34A6AE;
         border-radius: 32px;
@@ -172,4 +171,29 @@ button {
         }
 
     }
+}
+
+@media (max-width: 800px) {
+
+    .hands {
+        gap: 80px;
+
+        img {
+            width: 250px;
+            aspect-ratio: 1;
+        }
+    }
+
+    .user-selection {
+        gap: 30px;
+
+        button {
+            padding: 15px;
+
+            img {
+                width: 120px;
+            }
+        }
+    }
+
 }
