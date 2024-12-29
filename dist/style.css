@@ -40,7 +40,7 @@ button {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    height: 100vh;
+    height: 100dvh;
 
     display: flex;
     flex-direction: column;
